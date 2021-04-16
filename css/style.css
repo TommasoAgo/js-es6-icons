@@ -1,0 +1,47 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* HEADER */
+header img {
+    width: 15%;
+}
+
+header {
+    padding: 20px;
+}
+
+/* MAIN */
+
+/* Icons */
+.icon-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    padding: 20px;
+
+    background-color: #dddddd;
+}
+
+.icon {
+    text-align: center;
+
+    width: calc(( 100% / 5 ) - 30px);
+    padding: 30px;
+    margin-bottom: 80px;
+
+    background-color: white;
+
+    border-radius: 10px;
+
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.icon i {
+    font-size: 30px;
+}
