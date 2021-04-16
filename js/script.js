@@ -156,6 +156,18 @@ function printIcons (iconsArray, container) {
 // Scrivo una funzione che mi restituisca un Array con i colori
 function colorIcons(originalIconsArray, colorsArray) {
 	const iconTypes = getIconsType(originalIconsArray);
+
+	// Creo un nuovo Array con map
+	const iconsWithColors = originalIconsArray.map((element) => {
+		const clonedObject = {
+			...element
+		}
+
+		clonedObject.color = 'test';
+
+		return clonedObject;
+	})
+	console.log(iconsWithColors);
 }
 
 // Creo una funzione che genera un Array con dentro i tipi degli oggetti 'Icona' senza doppioni
@@ -172,5 +184,5 @@ function getIconsType(iconsArray) {
 		if (!typesArray.includes(elementType)) {
 			typesArray.push(elementType);
 		}
-	})
+	});
 }
