@@ -15,6 +15,16 @@ header {
 }
 
 /* MAIN */
+/* Filter */
+.filter {
+    background-color: #29b1dd;
+    color: white;
+
+    text-align: center;
+    padding: 20px 0;
+
+    border: 1px solid black;
+}
 
 /* Icons */
 .icons-container {

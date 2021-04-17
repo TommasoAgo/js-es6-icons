@@ -109,20 +109,11 @@ const colors = [
 
 // Creo un container che sia oggetto jQuery
 let iconsContainer = $('#icons-container');
-// Lo stampo
-printIcons(icons, iconsContainer);
-
-// --------- ELEMENT TEMPLATE ---------  
-{/* <div class="icon">
-	<i class="fas fa-cat"></i>
-	<div>
-		CAT
-	</div>
-</div> */}
-
 // Milestone 2
 // Coloriamo le icone per tipo
 const colorArray = colorIcons(icons, colors);
+// Lo stampo
+printIcons(colorArray, iconsContainer);
 
 // Milestone 3
 // Creiamo una select con i tipi di icone e usiamola per filtrare le icone
@@ -131,19 +122,20 @@ const colorArray = colorIcons(icons, colors);
 // --------- FUNCTIONS ---------
 // Scrivo una funzione che mi fa stampare tutte le icone di un Array. Container deve essere un oggetto jQuery
 function printIcons (iconsArray, container) {
+	console.log(iconsArray);
 	
 	iconsArray.forEach(element => {
 
 		// Destrutturo element per prenderne i valori
-		const {name, prefix, family} = element;
+		const {name, prefix, family, color} = element;
 		// Uppercase
 		const nameUppercase = name.toUpperCase();
-		
+
 		// IconElement sarà uguale al template che mi ero preparato su html coi valori reimpostati
 		// dalla destrutturazione dell'elemento.
 		let iconElement = `
 		<div class="icon">
-				<i class="${family} ${prefix}${name}"></i>
+				<i class="${family} ${prefix}${name}" style="color: ${color};"></i>
 				<div>
 					${nameUppercase}
 				</div>
@@ -159,15 +151,25 @@ function colorIcons(originalIconsArray, colorsArray) {
 
 	// Creo un nuovo Array con map
 	const iconsWithColors = originalIconsArray.map((element) => {
+
+		// Clono l'oggetto dell'Array principale per appendergl il colore
 		const clonedObject = {
 			...element
 		}
 
-		clonedObject.color = 'test';
+		// Con indexOf prendo l'indice dell'Array dei tipi
+		let iconsTypeIndex = iconTypes.indexOf(clonedObject.type);
+
+		// L'indice dell'Array dei colori deve combaciare con l'indice dell'Array dei tipi
+		// Ma deve essere diverso da -1 (nel caso in cui l'indexOf non trovasse l'indice e tornasse -1)
+		if (iconsTypeIndex != -1) {
+			clonedObject.color = colorsArray[iconsTypeIndex];
+		}
 
 		return clonedObject;
 	})
-	console.log(iconsWithColors);
+	
+	return iconsWithColors;
 }
 
 // Creo una funzione che genera un Array con dentro i tipi degli oggetti 'Icona' senza doppioni
@@ -185,4 +187,7 @@ function getIconsType(iconsArray) {
 			typesArray.push(elementType);
 		}
 	});
+
+	// La funzione ritornerà l'Array dei tipi
+	return typesArray;
 }
