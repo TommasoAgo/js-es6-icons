@@ -117,13 +117,33 @@ printIcons(colorArray, iconsContainer);
 
 // Milestone 3
 // Creiamo una select con i tipi di icone e usiamola per filtrare le icone
+// Mi serve la select come oggetto jQuery
+const selectElement = $('#type');
+const iconsTypes = getIconsType(colorArray);
+printFilter(iconsTypes, selectElement);
+
+// Stavo usando Array normali.
+// Meglio usare filter.
+
+
+// Creo un evento su selectElement. Quando cambia deve cambiare anche l'Array che va a stampare 
+selectElement.change(function() {
+	// Prendo il valore inserito dall'utente
+	selectedType = selectElement.val();
+
+	const filteredIcons = filterIcons(colorArray, selectedType);
+
+	// Stampo le icone
+	printIcons(filteredIcons, iconsContainer)
+});
+
 
 
 // --------- FUNCTIONS ---------
 // Scrivo una funzione che mi fa stampare tutte le icone di un Array. Container deve essere un oggetto jQuery
 function printIcons (iconsArray, container) {
-	console.log(iconsArray);
-	
+	container.html('');
+
 	iconsArray.forEach(element => {
 
 		// Destrutturo element per prenderne i valori
@@ -191,3 +211,29 @@ function getIconsType(iconsArray) {
 	// La funzione ritornerà l'Array dei tipi
 	return typesArray;
 }
+
+// Creo una funzione che filtra i tipi degli oggetti 
+function printFilter(iconTypesArray, selectEl) {
+	iconTypesArray.forEach((element) => {
+		const newOption = `
+			<option value="${element}">${element}</option> 
+		`
+
+		selectEl.append(newOption);
+	});
+};
+
+// Creo una funzione per filtrare le icone da stampare
+function filterIcons(iconsArray, type) {
+	// Uso una condizione per far si che se il valore della input è vuoto li stampi tutti
+	if ( type.length == 0 ) {
+		return iconsArray;
+	}
+
+	// Uso filter per filtrare le icone
+	let filteredArray = iconsArray.filter((element) => {
+		return element.type == type;
+	});
+	// Ritorno l'Array filtrato
+	return filteredArray;
+};
